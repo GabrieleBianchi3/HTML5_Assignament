@@ -106,7 +106,7 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     justify-content: flex-start;
 }
-.social {border-top: 1px solid #191919;}
+.social p{color: #fffff; border-top: 1px solid #191919;}
 .sidebar .social-icons {
     display: flex;
     gap: 15px;
