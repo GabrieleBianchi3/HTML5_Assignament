@@ -1,0 +1,251 @@
+/* Reset e base */
+* {margin: 0; padding: 0; box-sizing: border-box;}
+body {font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 1.6; color: #222; background-color: #f7f7f7; transition: overflow 0.3s ease, transform 0.3s ease;}
+img {max-width: 100%; height: auto; display: block;}
+ul {list-style: none;}
+a {text-decoration: none; color: inherit;}
+
+/* Overlay grigio */
+.overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.overlay.active {
+    display: block;
+    opacity: 1;
+}
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 300px;
+    height: 100%;
+    background: #191919;
+    z-index: 1000;
+    padding: 30px 20px;
+    transition: left 0.3s ease;
+    overflow-y: auto;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.sidebar.active {
+    left: 0;
+}
+
+.close-sidebar {
+    font-size: 24px;
+    cursor: pointer;
+    margin-bottom: 30px;
+    color: white;
+    border-bottom: 1px solid #d8d8d8;
+}
+
+.sidebar ul li a {
+    display: block;
+    padding: 12px 0;
+    font-weight: bold;
+    font-size: 16px;
+    color: #ffffff;
+}
+
+.sidebar ul li a:hover {
+    color: #1db954;
+}
+
+/* Top-Bar */
+.top-bar {background-color: #f0f0f0; height: 300px; display: flex; justify-content: center; align-items: center; overflow: hidden;}
+.top-bar img {width: 100%; height: 100%; object-fit: cover;}
+@media (max-width: 768px) {.top-bar {display: none;}}
+
+/* Main Header */
+.main-header {background-color: #ffffff; box-shadow: 0 2px 4px rgba(0,0,0,0.08); position: sticky; top: 0; z-index: 1000;}
+.header-container {display: flex; justify-content: space-between; align-items: center; position: relative; padding: 10px 20px;}
+.sidebar-toggle {font-size: 26px; cursor: pointer;}
+.logo {position: absolute; left: 50%; transform: translateX(-50%); font-size: 30px; font-weight: 900; letter-spacing: -1px; color: #006400;}
+.header-actions {display: flex; align-items: center; gap: 12px;}
+.notification-btn, .login-btn, .support-btn {background: none; border: none; cursor: pointer; font-size: 16px;}
+.support-btn {background-color: #1db954; color: white; padding: 8px 16px; border-radius: 30px; font-weight: bold; transition: background-color 0.3s;}
+.support-btn:hover {background-color: #17a44b;}
+.login-btn:hover, .notification-btn:hover {opacity: 0.8;}
+
+/* Sub-Nav */
+.sub-nav {background-color: #ffffff; border-top: 1px solid #e5e5e5; border-bottom: 1px solid #e5e5e5;}
+.sub-nav-container {display: flex; justify-content: center; align-items: center; gap: 25px; padding: 12px 20px; flex-wrap: wrap;}
+.nav-menu {display: flex; flex-wrap: wrap; gap: 18px; justify-content: center;}
+.nav-menu li a {font-weight: bold; color: #333; font-size: 15px; transition: color 0.3s;}
+.nav-menu li a:hover {color: #1db954;}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sub-nav-container {flex-direction: column; align-items: flex-start;}
+}
+@media (max-width: 576px) {
+    .nav-menu {gap: 15px;}
+    .header-container {padding: 10px;}
+    .sub-nav-container {padding: 10px;}
+    .logo {font-size: 24px;}
+}
+.site-content {
+    transition: transform 0.3s ease;
+}
+.site-content.shifted {
+    transform: translateX(300px);
+}
+
+
+
+
+footer {
+    background-color: #000000;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    width: 100%;
+    content-visibility: auto;
+}
+/* Navigazione footer */
+.footer-navigation {
+    display: flex;
+    padding: 0 15px;
+    margin: auto;
+    max-width: 1280px;
+}
+/* --- Sezione principale --- */
+.footer-content {
+    flex-direction: row;
+    padding-bottom: 38px;
+    border-bottom: 1px solid hsla(0, 0%, 100%, .1);
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 45px;
+    box-sizing: border-box;
+    width: 100%;
+}
+/* Logo */
+.footer-logo img {
+    align-items: center;
+    display: flex;
+    flex: 0 0 176px;
+    -ms-grid-row-align: stretch;
+    align-self: stretch;
+    height: 100%;
+    width: auto;
+    color: -webkit-link;
+    cursor: pointer;
+    text-decoration: underline;
+}
+.footer-section {
+    flex-grow: 2;
+    height: 7.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    font-size: .75rem;
+    margin: 15px 0 0 30px;
+    box-sizing: border-box;
+}
+.footer-links {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 3;
+    flex-wrap: wrap;
+    font-size: .75rem;
+    margin: 15px 0 0 30px;
+    box-sizing: border-box;
+}
+.footer-section a{
+    color: #fff;
+    font-family: Montserrat, sans-serif;
+    font-weight: 700;
+    letter-spacing: .02687rem;
+    cursor: pointer;
+    margin-bottom: .9375rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+}
+.footer-links a{
+    color: #e5e5e5;
+    font-family: Montserrat, sans-serif;
+    font-weight: 700;
+    letter-spacing: .02687rem;
+    cursor: pointer;
+    margin-bottom: .9375rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+}
+.footer-section a:hover {
+    color: #0dbe98;
+}
+.footer-links a:hover {
+    color: #0dbe98;
+}
+.footer-links{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 2;
+    flex-wrap: wrap;
+    font-size: .75rem;
+    color: #e5e5e5;
+    height: 8.75rem;
+    opacity: .8;
+}
+.footer-links-info {
+    color: #e5e5e5;
+    height: 8.75rem;
+    opacity: .8;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 3;
+    flex-wrap: wrap;
+    font-size: .75rem;
+    margin: 15px 0 0 30px;
+    width: auto;
+}
+.footer-links-main a
+{
+    color: #fff;
+    font-family: Montserrat, sans-serif;
+    font-weight: 700;
+    letter-spacing: .02687rem;
+}
+.footer-links-info a {
+    color: #e5e5e5;
+    font-family: sans-serif;
+    letter-spacing: .02375rem;
+    min-width: 8.75rem;
+}
+.footer-links-main a:hover,
+.footer-links-info a:hover {
+    text-decoration: underline;
+}
+/* --- Branding sotto --- */
+.footer-branding {
+    border-top: 1px solid #444;
+    margin-top: 20px;
+    padding: 15px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1120px;
+    width: calc(100% - 64px);
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 12px;
+}
+.footer-branding p {
+    color: #aaaaaa;
+    margin: 0;
+}
+.footer-branding span {
+    color: #ffffff;
+    font-weight: bold;
+}
