@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HuffPost Clone</title>
     <link rel="stylesheet" href="./css/style.css">
-<link rel="stylesheet" href="./css/fontawesome-free-6.7.2-web/css/all.min.css">
-    
+    <link rel="stylesheet" href="./css/fontawesome-free-6.7.2-web/css/all.min.css">
 </head>
 
 <body>
@@ -191,29 +190,30 @@
                 </svg>
             </div>
             <ul class="nav-menu" id="sections">
-                <li><a href="#">News</a></li>
-                <li><a href="#">Politics</a></li>
-                <li><a href="#">Entertainment</a></li>
-                <li><a href="#">Life</a></li>
-                <li><a href="#">Personal</a></li>
-                <li><a href="#">Voices</a></li>
-                <li><a href="#">Shopping</a></li>
-                <li><a href="#">Games</a></li>
+                <li><a href="#"><strong>News</strong></a></li>
+                <li><a href="#"><strong>Politics</strong></a></li>
+                <li><a href="#"><strong>Entertainment</strong></a></li>
+                <li><a href="#"><strong>Life</strong></a></li>
+                <li><a href="#"><strong>Personal</strong></a></li>
+                <li><a href="#"><strong>Voices</strong></a></li>
+                <li><a href="#"><strong>Shopping</strong></a></li>
+                <li><a href="#"><strong>Games</strong></a></li>
             </ul><!---->
+            <ul class="nav-menu" id="edition">
+                <li><a href="#" data-edition="U.S."><strong>U.S.</strong></a></li>
+                <li><a href="#" data-edition="U.K."><strong>U.K.</strong></a></li>
+                <li><a href="#" data-edition="España"><strong>España</strong></a></li>
+                <li><a href="#" data-edition="France"><strong>France</strong></a></li>
+                <li><a href="#" data-edition="Ελλάδα"><strong>Ελλάδα (Greece)</strong></a></li>
+                <li><a href="#" data-edition="Italia"><strong>Italia</strong></a></li>
+                <li><a href="#" data-edition="日本"><strong>日本 (Japan)</strong></a></li>
+                <li><a href="#" data-edition="한국"><strong>한국 (Korea)</strong></a></li>
+            </ul>
             <div class="edition-switcher">
-                <button id="edition-toggle">U.S. Edition</button>
-                <div class="edition-options" id="editionOptions"><a href="#" class="edition" data-edition="U.S.">U.S.</a>
-                    <ul>
-                        <li><a href="#" class="edition" data-edition="U.K.">U.K.</a></li>
-                        <li><a href="#" class="edition" data-edition="España">España</a></li>
-                        <li><a href="#" class="edition" data-edition="France">France</a></li>
-                        <li><a href="#" class="edition" data-edition="Ελλάδα">Ελλάδα (Greece)</a></li>
-                        <li><a href="#" class="edition" data-edition="Italia">Italia</a></li>
-                        <li><a href="#" class="edition" data-edition="日本">日本 (Japan)</a></li>
-                        <li><a href="#" class="edition" data-edition="한국">한국 (Korea)</a></li>
-                    </ul>
+                <button id="edition-toggle"><strong>U.S. Edition</strong></button>
+                <div class="edition-options" id="editionOptions"><a href="#" data-edition="U.S."><strong>U.S.</strong></a>
                 </div>
-                <button id="supportUs" style="display: none;" class="support-btn">Support us</button>
+                <button id="supportUs"><strong>Support us</strong></button>
             </div>
         </div>
     </nav>
@@ -367,31 +367,31 @@
                 </a>
                 <div class="footer-columns">
 
-                    <ul>
-                        <li><a href="#">NEWS</a></li>
-                        <li><a href="#">POLITICS</a></li>
-                        <li><a href="#">ENTERTAINMENT</a></li>
-                        <li><a href="#">LIFE</a></li>
-                        <li><a href="#">VOICES</a></li>
-                        <li><a href="#">HUFFPOST PERSONAL</a></li>
-                        <li><a href="#">SHOPPING</a></li>
-                        <li><a href="#">NEWSLETTERS</a></li>
+                    <ul class="footer-sections">
+                        <li><a href="#"><strong>News</strong></a></li>
+                        <li><a href="#"><strong>Politics</strong></a></li>
+                        <li><a href="#"><strong>Entertainment</strong></a></li>
+                        <li><a href="#"><strong>Life</strong></a></li>
+                        <li><a href="#"><strong>Voices</strong></a></li>
+                        <li><a href="#"><strong>Huffpost Personal</strong></a></li>
+                        <li><a href="#"><strong>Shopping</strong></a></li>
+                        <li><a href="#"><strong>Newsletters</strong></a></li>
                     </ul>
                     <ul class="footer-info">
-                        <li><a href="#">ABOUT US</a></li>
-                        <li><a href="#">ADVERTISE</a></li>
-                        <li><a href="#">CONTACT US</a></li>
-                        <li><a href="#">RSS</a></li>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">CAREERS</a></li>
-                        <li><a href="#">USER AGREEMENT</a></li>
-                        <li><a href="#">COMMENT POLICY</a></li>
-                        <li><a href="#">DMCA POLICY</a></li>
-                        <li><a href="#">HUFFPOST PRESS ROOM</a></li>
-                        <li><a href="#">ACCESSIBILITY STATEMENT</a></li>
-                        <li><a href="#">PRIVACY POLICY</a></li>
-                        <li><a href="#">CONSENT PREFERENCES</a></li>
-                        <li><a href="#">MANAGE PREFERENCES</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Advertise</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Rss</a></li>
+                        <li><a href="#">Faq</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">User Agreement</a></li>
+                        <li><a href="#">Comment Policy</a></li>
+                        <li><a href="#">Dmca Policy</a></li>
+                        <li><a href="#">Huffpost Press Room</a></li>
+                        <li><a href="#">Accessibility Statement</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Consent Preferences</a></li>
+                        <li><a href="#">Manage Preferences</a></li>
                     </ul>
                 </div>
             </div>
@@ -401,63 +401,56 @@
             <p class="footer-page"><strong>The Huffington Post</strong></p>
         </div>
 </footer>
-
 </div>
-<script>
 
+<script>
     /**/
     document.addEventListener("DOMContentLoaded", function () {
 
         // === GESTIONE TOGGLE EDIZIONI ===
         function setupEditionToggle() {
+            const sectionsMenu = document.getElementById('sections');
+            const editionMenu = document.getElementById('edition');
             const editionToggle = document.getElementById('edition-toggle');
-            const editionOptions = document.getElementById('editionOptions');
-            const sections = document.getElementById('sections');
+            const originalButtonText = editionToggle.innerHTML;
 
-            if (!editionToggle || !editionOptions) return;
+            // Imposta lo stato iniziale
+            sectionsMenu.style.display = 'inline-flex';
+            editionMenu.style.display = 'none';
 
-            let currentEdition = editionToggle.textContent.replace(' Edition', '') || 'U.S.';
+            // Gestisce il click sul bottone edition-toggle
+            editionToggle.addEventListener('click', function() {
+                // Se il menu delle sezioni è visibile, nascondilo e mostra il menu delle edizioni
+                if (sectionsMenu.style.display === 'inline-flex') {
+                    sectionsMenu.style.display = 'none';
+                    editionMenu.style.display = 'inline-flex';
+                    editionToggle.innerHTML = '<i class="fas fa-times" style="display:flex;justify-content: center; padding-right: 2rem"></i>'; // × simbolo di chiusura
+                    editionToggle.classList.add('close-button');
+                }
+                // Altrimenti, mostra il menu delle sezioni e nascondi il menu delle edizioni
+                else {
+                    sectionsMenu.style.display = 'inline-flex';
+                    editionMenu.style.display = 'none';
+                    editionToggle.innerHTML = originalButtonText;
+                    editionToggle.classList.remove('close-button');
 
-            editionToggle.addEventListener('click', function (e) {
-                e.stopPropagation();
-                const expanded = this.getAttribute('aria-expanded') === 'true';
-
-                this.setAttribute('aria-expanded', (!expanded).toString());
-                editionOptions.classList.toggle('active');
-                editionOptions.setAttribute('aria-hidden', expanded.toString());
-
-                if (sections) {
-                    sections.style.display = expanded ? 'flex' : 'none';
-                    if (!expanded) {
-                        this.innerHTML = '<img src="svg/close.svg" alt="Close" width="16" height="16">';
-                    } else {
-                        this.textContent = `${currentEdition} Edition`;
-                    }
                 }
             });
 
-            document.addEventListener('click', () => {
-                editionToggle.setAttribute('aria-expanded', 'false');
-                editionOptions.classList.remove('active');
-                editionOptions.setAttribute('aria-hidden', 'true');
-                if (sections) {
-                    sections.style.display = 'flex';
-                    editionToggle.textContent = `${currentEdition} Edition`;
-                }
-            });
+            // Gestisce il click sulle opzioni di edizione per tornare al menu principale
+            const editionLinks = editionMenu.querySelectorAll('a');
+            editionLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Aggiorna il testo del bottone con l'edizione selezionata
+                    const edition = this.getAttribute('data-edition');
+                    editionToggle.innerHTML = `<strong>${edition} Edition</strong>`;
 
-            editionOptions.addEventListener('click', (e) => e.stopPropagation());
+                    // Torna alla visualizzazione del menu delle sezioni
+                    sectionsMenu.style.display = 'inline-flex';
+                    editionMenu.style.display = 'none';
 
-            const editions = document.querySelectorAll('.edition');
-            editions.forEach(edition => {
-                edition.addEventListener('click', function (e) {
+                    // Previeni il comportamento predefinito del link
                     e.preventDefault();
-                    currentEdition = this.getAttribute('data-edition');
-                    editionToggle.textContent = `${currentEdition} Edition`;
-                    editionToggle.setAttribute('aria-expanded', 'false');
-                    editionOptions.classList.remove('active');
-                    editionOptions.setAttribute('aria-hidden', 'true');
-                    if (sections) sections.style.display = 'flex';
                 });
             });
         }
