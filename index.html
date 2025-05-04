@@ -167,10 +167,11 @@
             </div>
         </div>
     </header>
+    <div id="subnav-sentinel"></div>
     <nav class="sub-nav main-nav" aria-label="Navigazione secondaria">
         <div class="sub-nav-container">
             <div class="nav-left">
-                <div class="sidebar-toggle-sticky">
+                <div class="sidebar-toggle">
                     <i class="fas fa-bars"></i>
                 </div>
                 <svg class="nav__logo__svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 90" width="176px">
@@ -404,122 +405,94 @@
 <script>
 
     /**/
-    document.addEventListener("DOMContentLoaded", function() {
-        // --------- GESTIONE MENU EDIZIONI ---------
-        const editionToggle = document.getElementById('edition-toggle');
-        const editionOptions = document.getElementById('editionOptions');
-        const sections = document.getElementById('sections');
-        let currentEdition = editionToggle ? editionToggle.textContent.replace(' Edition', '') : 'U.S.';
+    document.addEventListener("DOMContentLoaded", function () {
 
-        if (editionToggle && editionOptions) {
-            // Gestore click sul toggle delle edizioni
-            editionToggle.addEventListener('click', function(e) {
+        // === GESTIONE TOGGLE EDIZIONI ===
+        function setupEditionToggle() {
+            const editionToggle = document.getElementById('edition-toggle');
+            const editionOptions = document.getElementById('editionOptions');
+            const sections = document.getElementById('sections');
+
+            if (!editionToggle || !editionOptions) return;
+
+            let currentEdition = editionToggle.textContent.replace(' Edition', '') || 'U.S.';
+
+            editionToggle.addEventListener('click', function (e) {
                 e.stopPropagation();
                 const expanded = this.getAttribute('aria-expanded') === 'true';
 
-                // Toggle stato e visualizzazione
                 this.setAttribute('aria-expanded', (!expanded).toString());
                 editionOptions.classList.toggle('active');
-                editionOptions.setAttribute('aria-hidden', (expanded).toString());
+                editionOptions.setAttribute('aria-hidden', expanded.toString());
 
-                // Gestisci sections se esiste
                 if (sections) {
                     sections.style.display = expanded ? 'flex' : 'none';
-                }
-
-                // Cambia icona/testo se necessario
-                if (expanded) {
-                    editionToggle.textContent = `${currentEdition} Edition`;
-                } else {
-                    // Verifica se abbiamo l'icona di chiusura, solo per il secondo caso d'uso
-                    if (sections) {
-                        editionToggle.innerHTML = '<img src="svg/close.svg" alt="Close" width="16" height="16">';
+                    if (!expanded) {
+                        this.innerHTML = '<img src="svg/close.svg" alt="Close" width="16" height="16">';
+                    } else {
+                        this.textContent = `${currentEdition} Edition`;
                     }
                 }
             });
 
-            // Chiusura quando si clicca altrove
-            document.addEventListener('click', function() {
+            document.addEventListener('click', () => {
                 editionToggle.setAttribute('aria-expanded', 'false');
                 editionOptions.classList.remove('active');
                 editionOptions.setAttribute('aria-hidden', 'true');
-
-                // Ripristina sections se esiste
                 if (sections) {
                     sections.style.display = 'flex';
                     editionToggle.textContent = `${currentEdition} Edition`;
                 }
             });
 
-            // Previeni la chiusura quando si clicca nel dropdown
-            editionOptions.addEventListener('click', function(e) {
-                e.stopPropagation();
-            });
+            editionOptions.addEventListener('click', (e) => e.stopPropagation());
 
-            // Gestione del cambio edizione
             const editions = document.querySelectorAll('.edition');
             editions.forEach(edition => {
-                edition.addEventListener('click', function(e) {
-                    e.preventDefault(); // Previene il comportamento predefinito del link
+                edition.addEventListener('click', function (e) {
+                    e.preventDefault();
                     currentEdition = this.getAttribute('data-edition');
                     editionToggle.textContent = `${currentEdition} Edition`;
                     editionToggle.setAttribute('aria-expanded', 'false');
                     editionOptions.classList.remove('active');
                     editionOptions.setAttribute('aria-hidden', 'true');
-
-                    // Ripristina sections se esiste
-                    if (sections) {
-                        sections.style.display = 'flex';
-                    }
+                    if (sections) sections.style.display = 'flex';
                 });
             });
         }
 
-        // --------- GESTIONE BARRA DI NAVIGAZIONE STICKY ---------
-        const subNav = document.querySelector('.sub-nav');
+        // === GESTIONE BARRA STICKY ===
+        function setupStickyNav() {
+            const subNav = document.querySelector('.sub-nav');
+            const sentinel = document.getElementById('subnav-sentinel');
+            const placeholder = document.createElement('div');
 
-        if (subNav) {
-            // Usiamo l'Intersection Observer per un approccio più moderno ed efficiente
+            if (!subNav || !sentinel) return;
+
+            placeholder.style.height = `${subNav.offsetHeight}px`;
+            placeholder.style.display = 'none';
+            subNav.parentNode.insertBefore(placeholder, subNav);
+
             const observer = new IntersectionObserver(
-                ([e]) => {
-                    if (e.intersectionRatio < 1) {
-                        subNav.classList.add('sticky-active');
-                    } else {
-                        subNav.classList.remove('sticky-active');
-                    }
+                ([entry]) => {
+                    const isSticky = !entry.isIntersecting;
+                    subNav.classList.toggle('sticky-active', isSticky);
+                    placeholder.style.display = isSticky ? 'block' : 'none';
                 },
-                { threshold: [1] }
+                {
+                    root: null,
+                    threshold: 0,
+                }
             );
 
-            observer.observe(subNav);
-
-            // Backup con il metodo di scroll per compatibilità
-            function handleScroll() {
-                const currentScrollPosition = window.scrollY;
-                const headerHeight = document.querySelector('.main-header')?.offsetHeight || 0;
-
-                if (currentScrollPosition > headerHeight) {
-                    subNav.classList.add('sticky-active');
-                } else {
-                    subNav.classList.remove('sticky-active');
-                }
-            }
-
-            // Throttling per migliorare le prestazioni
-            let isScrolling;
-            window.addEventListener('scroll', function() {
-                window.clearTimeout(isScrolling);
-                isScrolling = setTimeout(handleScroll, 10);
-            });
-
-            // Inizializzazione all'avvio e gestione del resize
-            handleScroll();
-            window.addEventListener('resize', handleScroll);
+            observer.observe(sentinel);
         }
 
-        // --------- GESTIONE SCORRIMENTO ORIZZONTALE DEL MENU ---------
-        const navMenu = document.querySelector('.nav-menu');
-        if (navMenu && 'ontouchstart' in window) {
+        // === GESTIONE SCORRIMENTO ORIZZONTALE MOBILE MENU ===
+        function setupHorizontalScroll() {
+            const navMenu = document.querySelector('.nav-menu');
+            if (!navMenu || !('ontouchstart' in window)) return;
+
             let isDown = false;
             let startX;
             let scrollLeft;
@@ -534,7 +507,7 @@
                 if (!isDown) return;
                 e.preventDefault();
                 const x = e.touches[0].pageX - navMenu.offsetLeft;
-                const walk = (x - startX) * 1.5; // Velocità di scorrimento
+                const walk = (x - startX) * 1.5;
                 navMenu.scrollLeft = scrollLeft - walk;
             });
 
@@ -543,40 +516,40 @@
             });
         }
 
-        // --------- GESTIONE SIDEBAR MOBILE ---------
-        const siteContent = document.querySelector('.site-content');
-        const sidebarToggle = document.querySelector('.sidebar-toggle');
-        const sidebar = document.querySelector('.sidebar');
-        const overlay = document.querySelector('.overlay');
-        const closeSidebar = document.querySelector('.close-sidebar');
+        // === GESTIONE SIDEBAR MOBILE ===
+        function setupMobileSidebar() {
+            const sidebarToggles = document.querySelectorAll('.sidebar-toggle');
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.querySelector('.overlay');
+            const closeSidebar = document.querySelector('.close-sidebar');
+            const siteContent = document.querySelector('.site-content');
 
-        function openSidebar() {
-            sidebar?.classList.add('active');
-            overlay?.classList.add('active');
-            siteContent?.classList.add('shifted');
-            document.body.style.overflow = 'hidden';
+            function openSidebar() {
+                sidebar?.classList.add('active');
+                overlay?.classList.add('active');
+                siteContent?.classList.add('shifted');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeSidebarFunc() {
+                sidebar?.classList.remove('active');
+                overlay?.classList.remove('active');
+                siteContent?.classList.remove('shifted');
+                document.body.style.overflow = 'auto';
+            }
+
+            sidebarToggles.forEach(toggle=>toggle.addEventListener('click', openSidebar));
+            closeSidebar?.addEventListener('click', closeSidebarFunc);
+            overlay?.addEventListener('click', closeSidebarFunc);
         }
 
-        function closeSidebarFunc() {
-            sidebar?.classList.remove('active');
-            overlay?.classList.remove('active');
-            siteContent?.classList.remove('shifted');
-            document.body.style.overflow = 'auto';
-        }
+        // === INIZIALIZZAZIONE ===
+        setupEditionToggle();
+        setupStickyNav();
+        setupHorizontalScroll();
+        setupMobileSidebar();
 
-        if (sidebarToggle) {
-            sidebarToggle.addEventListener('click', openSidebar);
-        }
-
-        if (closeSidebar) {
-            closeSidebar.addEventListener('click', closeSidebarFunc);
-        }
-
-        if (overlay) {
-            overlay.addEventListener('click', closeSidebarFunc);
-        }
     });
-
 </script>
 </body>
 </html>
