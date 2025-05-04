@@ -260,13 +260,13 @@ ul#edition {
     gap: 1vh;
     color: #434343;
     margin-left: 2vh;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.1s ease;
     opacity: 0;
     /*Da mettere 1 per rendere visibile il logo*/
 }
 .sub-nav.sticky-active .nav-left {
     opacity: 1;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.3s ease;
 }
 .sub-nav.sticky-active #edition-toggle {
     display: none;
