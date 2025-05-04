@@ -1,14 +1,29 @@
 /* Reset e base */
-* {margin: 0; padding: 0; box-sizing: border-box;}
-body {font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 1.6; color: #222; background-color: #f7f7f7; transition: overflow 0.3s ease, transform 0.3s ease;}
-img {max-width: 100%; height: auto; display: block;}
-ul {list-style: none;}
-a {text-decoration: none; color: inherit;}
-/* Tipografia */
+* {margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     line-height: 1.6;
+    color: #222;
+    background-color: #f7f7f7;
+    transition: overflow 0.3s ease,
+    transform 0.3s ease;
 }
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+ul {
+    list-style: none;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+/* Tipografia */
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-weight: 700;
@@ -138,20 +153,26 @@ h1, h2, h3, h4, h5, h6 {
 .sidebar-links h3:hover {text-decoration: underline}
 .sidebar-links a:hover {text-decoration: underline}
 /* Base sticky nav */
+#subnav-sentinel {
+    height: 1px;
+}
 .sub-nav {
-    border-top: 1px solid #e1e1e1;
-    border-bottom: 1px solid #e1e1e1;
-    background-color: #ffffff;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-    position: sticky;
+    position: relative;
     top: 0;
     z-index: 1000;
-    transition: box-shadow 0.3s ease;
+    background-color: white;
+    transition: top 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
 .sub-nav.sticky-active {
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 
 .sub-nav-container {
     display: flex;
@@ -187,7 +208,12 @@ ul#sections{
     gap: 1vh;
     color: #434343;
     margin-left: 2vh;
-    opacity: 1; /*Da mettere 1 per rendere visibile il logo*/
+    transition: opacity 0.5s ease;
+    opacity: 0; /*Da mettere 1 per rendere visibile il logo*/
+}
+.sub-nav.sticky-active .nav-left {
+    opacity: 1;
+    transition: opacity 0.5s ease;
 }
 .sidebar-toggle-sticky {
     display: flex;
