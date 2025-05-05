@@ -1006,7 +1006,7 @@ ul#edition {
 }
 
 /* Desktop grandi e schermi molto larghi */
-@media (min-width: 1200px) {
+@media (min-width: 1024px) {
     .header-container {
         margin: 0 auto;
     }
