@@ -346,8 +346,22 @@
                     <h2>Huffpost Videos</h2>
                     <div class="section-line" aria-hidden="true"></div>
                 </header>
+                <div id="videoContainer" class="video-container">
+                    <figure class="video-item">
 
+                        <video id="video" autoplay muted loop playsinline controls preload="metadata">
+                            <source src="media/1448735-uhd_4096_2160_24fps.mp4" type="video/mp4">
+                            <source src="media/1448735-uhd_4096_2160_24fps%20(1).webm" type="video/webm">
+                            Il tuo browser non supporta il tag video. Prova ad aggiornare il browser.
+                        </video>
+                        <button id="closeFloatingVideo" class="close-btn" aria-label="Chiudi video fluttuante">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <figcaption>Lorem ipsum dolor sit amet, consectetur adipiscing leo.</figcaption>
+                    </figure>
+                </div>
             </section>
+
             <section class="latest-news">
                 <header class="section-header">
                     <h2>What's Happening</h2>
@@ -397,7 +411,20 @@
                 <img src="https://placehold.co/300x600?text=Ad" alt="Advertisement">
             </section>
         </aside>
-
+        <section class="banner">
+            <svg class="nav__logo__svg-banner" height="28px" x="0px" y="0px" viewBox="0 0 30 30" xml:space="preserve">
+                        <g>
+                            <g>
+                                <path d="M10.9,30l5.2-30H0v30L10.9,30z" fill="#0dbe98">
+                                </path>
+                            </g>
+                            <g>
+                                <path d="M19.1,0l-5.2,30L30,30l0-30L19.1,0z" fill="#0dbe98">
+                                </path>
+                            </g>
+                        </g>
+                    </svg>
+        </section>
     </main>
     <footer class="footer">
         <div class="footer-navigation">
@@ -471,12 +498,50 @@
 <script>
     /**/
     document.addEventListener("DOMContentLoaded", function () {
+        // Funzione principale di inizializzazione
+        function initializePage() {
+            setupMobileSidebar();
+            setupEditionToggle();
+            setupStickyNav();
+            setupHorizontalScroll()
+            setupVideoHandling();
+        }
+
+        // === GESTIONE SIDEBAR MOBILE ===
+        function setupMobileSidebar() {
+            const sidebarToggles = document.querySelectorAll('.sidebar-toggle');
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.querySelector('.overlay');
+            const closeSidebar = document.querySelector('.close-sidebar');
+            const siteContent = document.querySelector('.site-content');
+
+            function openSidebar() {
+                sidebar?.classList.add('active');
+                overlay?.classList.add('active');
+                siteContent?.classList.add('shifted');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeSidebarFunc() {
+                sidebar?.classList.remove('active');
+                overlay?.classList.remove('active');
+                siteContent?.classList.remove('shifted');
+                document.body.style.overflow = 'auto';
+            }
+
+            sidebarToggles.forEach(toggle => toggle.addEventListener('click', openSidebar));
+            closeSidebar?.addEventListener('click', closeSidebarFunc);
+            overlay?.addEventListener('click', closeSidebarFunc);
+        }
 
         // === GESTIONE TOGGLE EDIZIONI ===
         function setupEditionToggle() {
             const sectionsMenu = document.getElementById('sections');
             const editionMenu = document.getElementById('edition');
             const editionToggle = document.getElementById('edition-toggle');
+
+            if (!sectionsMenu || !editionMenu || !editionToggle) return;
+
             const originalButtonText = editionToggle.innerHTML;
 
             // Imposta lo stato iniziale
@@ -489,7 +554,7 @@
                 if (sectionsMenu.style.display === 'inline-flex') {
                     sectionsMenu.style.display = 'none';
                     editionMenu.style.display = 'inline-flex';
-                    editionToggle.innerHTML = '<i class="fas fa-times" style="display:flex;justify-content: center; padding-right: 2rem"></i>'; // × simbolo di chiusura
+                    editionToggle.innerHTML = '<i class="fas fa-times" style="display:flex;justify-content: center; padding-right: 2rem"></i>'; 
                     editionToggle.classList.add('close-button');
                 }
                 // Altrimenti, mostra il menu delle sezioni e nascondi il menu delle edizioni
@@ -498,7 +563,6 @@
                     editionMenu.style.display = 'none';
                     editionToggle.innerHTML = originalButtonText;
                     editionToggle.classList.remove('close-button');
-
                 }
             });
 
@@ -524,10 +588,10 @@
         function setupStickyNav() {
             const subNav = document.querySelector('.sub-nav');
             const sentinel = document.getElementById('subnav-sentinel');
-            const placeholder = document.createElement('div');
 
             if (!subNav || !sentinel) return;
 
+            const placeholder = document.createElement('div');
             placeholder.style.height = `${subNav.offsetHeight}px`;
             placeholder.style.display = 'none';
             subNav.parentNode.insertBefore(placeholder, subNav);
@@ -574,40 +638,51 @@
                 isDown = false;
             });
         }
+        function setupVideoHandling() {
+            const video = document.getElementById("video");
+            const figure = document.querySelector(".video-item");
+            const closeButton = document.getElementById("closeFloatingVideo");
 
-        // === GESTIONE SIDEBAR MOBILE ===
-        function setupMobileSidebar() {
-            const sidebarToggles = document.querySelectorAll('.sidebar-toggle');
-            const sidebar = document.querySelector('.sidebar');
-            const overlay = document.querySelector('.overlay');
-            const closeSidebar = document.querySelector('.close-sidebar');
-            const siteContent = document.querySelector('.site-content');
+            let videoHasStarted = false;
+            let isVisible = true;
 
-            function openSidebar() {
-                sidebar?.classList.add('active');
-                overlay?.classList.add('active');
-                siteContent?.classList.add('shifted');
-                document.body.style.overflow = 'hidden';
+            // Osserva se .video-item è visibile
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    isVisible = entry.isIntersecting;
+                    updateVideoClass();
+                });
+            }, { threshold: 0.1 }); // scatta quando almeno il 10% è visibile
+
+            observer.observe(figure);
+
+            // Quando il video parte
+            video.addEventListener("play", () => {
+                videoHasStarted = true;
+                updateVideoClass();
+            });
+
+            // Funzione per gestire lo stile
+            function updateVideoClass() {
+                if (videoHasStarted && !isVisible) {
+                    video.classList.add("detached");
+                    closeButton.style.display ="flex"
+                } else {
+                    video.classList.remove("detached");
+                    closeButton.style.display ="none"
+                }
             }
 
-            function closeSidebarFunc() {
-                sidebar?.classList.remove('active');
-                overlay?.classList.remove('active');
-                siteContent?.classList.remove('shifted');
-                document.body.style.overflow = 'auto';
-            }
 
-            sidebarToggles.forEach(toggle=>toggle.addEventListener('click', openSidebar));
-            closeSidebar?.addEventListener('click', closeSidebarFunc);
-            overlay?.addEventListener('click', closeSidebarFunc);
+            closeButton.addEventListener("click", () => {
+                // Rimuovi la classe 'detached' per far tornare il video alla posizione normale
+                video.classList.remove("detached");
+                closeButton.style.display ="none"
+            });
         }
 
-        // === INIZIALIZZAZIONE ===
-        setupEditionToggle();
-        setupStickyNav();
-        setupHorizontalScroll();
-        setupMobileSidebar();
-
+        // Avvia l'inizializzazione della pagina
+        initializePage();
     });
 </script>
 </body>
