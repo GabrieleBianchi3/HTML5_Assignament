@@ -31,7 +31,9 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 1.3;
     margin-bottom: 1vh;
 }
-
+.banner {
+    display: none;
+}
 
 .nav-menu li a {
     transition: color 0.2s ease;
@@ -747,6 +749,19 @@ ul#edition {
 .nav__right__profile-circle{
     display: none;
 }
+
+.section-header {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+
+
+
+
+
+
+
 /* Piccoli dispositivi: telefoni verticali */
 @media (max-width: 768px) {
     .top-bar {
@@ -801,8 +816,6 @@ ul#edition {
         width: 28px;
         order: 3;
     }
-
-
     ul#sections {
         gap: 12px;
     }
@@ -882,6 +895,9 @@ ul#edition {
     .footer-bottom {
         flex-direction: column;
         text-align: center;
+    }
+    .video-container{
+        display: none;
     }
 }
 
@@ -980,7 +996,13 @@ ul#edition {
         width: 28px;
         height: 28px;
     }
-
+    #video {
+        width: 100%;
+        height: auto;
+        border-radius: 0.75em;
+        animation: fadeInOut 0.5s ease-out forwards;
+        will-change: opacity;
+    }
 }
 
 /* Desktop grandi e schermi molto larghi */
@@ -1018,5 +1040,76 @@ ul#edition {
     .nav-menu .edition-options {
         padding-left: 25%;
         gap: 2vh;
+    }
+    .banner{
+        display: grid;
+        grid-template-columns: 1fr 4fr;
+        width: 400px;
+        height: 58px;
+        position: fixed;
+        background-color: #fff;
+        padding: 1vh;
+        place-content: center;
+        bottom: 0;
+        right: 0;
+        z-index: 1000;
+    }
+
+    /* Video fluttuante (staccato) */
+    #video.detached {
+        position: fixed;
+        bottom: 59px;
+        right: 2vw;
+        width: min(25vw, 480px);
+        height: auto;
+        aspect-ratio: 16 / 9;
+        background: white;
+        border-radius: 0.75em;
+        box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.4);
+        animation: slideInFromRight 0.5s ease-out;
+        z-index: 999;
+        object-fit: cover;
+        will-change: transform;
+    }
+
+    .close-btn {
+        display: none;
+        position: fixed;
+        bottom: 30vh;
+        right: 2vh;
+        border: 1px solid #d8d8d8;
+        border-radius: 50%;
+        padding: 0.5em;
+        font-size: 1.2em;
+        cursor: pointer;
+        z-index: 1001;
+    }
+
+    /* Video normale (non staccato) con dissolvenza */
+    #video:not(.detached) {
+        width: 100%;
+        height: auto;
+        border-radius: 0.75em;
+        animation: fadeInOut 0.5s ease-out forwards;
+        will-change: opacity;
+    }
+
+    /* Animazioni */
+    @keyframes slideInFromRight {
+        from {
+            transform: translateX(100%);
+        }
+        to {
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes fadeInOut {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
     }
 }
